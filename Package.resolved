@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CardDeck",
+        "repositoryURL": "https://github.com/mmuszynski/CardDeck",
+        "state": {
+          "branch": null,
+          "revision": "430ba1f9d8a67d1138928af4e5391a1a8b64a2d3",
+          "version": "0.0.8"
+        }
+      },
+      {
+        "package": "CardGames",
+        "repositoryURL": "https://github.com/mmuszynski/CardGames",
+        "state": {
+          "branch": null,
+          "revision": "5a5a3e3168596daa97ac72c5e6cf9d8988119a7c",
+          "version": "0.0.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
