@@ -8,8 +8,8 @@
 import SwiftUI
 import CardDeck
 
-struct HandView<CardType: Card>: View {
-    var cards: Deck<CardType>
+public struct HandView<CardType: Card>: View {
+    public var cards: Deck<CardType>
     @Binding var selection: Set<Int>
     
     func fanAmount(_ index: Int) -> Double {
@@ -18,7 +18,7 @@ struct HandView<CardType: Card>: View {
         return angle * (Double(index) - mid)
     }
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             ForEach(0..<cards.count) { index in
                 CardView(card: cards[index])
