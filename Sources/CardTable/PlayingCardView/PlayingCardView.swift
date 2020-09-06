@@ -58,40 +58,36 @@ struct PlayingCardView: View {
         ZStack {
             GeometryReader { g in
                 let size = g.size.height > g.size.width ? g.size.width: g.size.height
-                let fontSize = size * 0.2
-                let spacing = -fontSize * 0.2
+                let fontSize = size * 0.18
                 let font = Font.system(size: fontSize)
-                let smallFont = Font.system(size: fontSize / 1.25)
                 
                 ZStack {
-                    VStack(spacing: spacing) {
-                        Group {
-                            Text(card.rank.debugDescription)
-                                .font(font)
-                            Text(card.suit.debugDescription)
-                                .font(smallFont)
-                        }
+                    VStack(spacing: 0) {
+                        Text(card.rank.debugDescription)
+                            .font(font)
+                        card.suit.svgImage
+                            .frame(width: size / 9, height: size / 9)
+                        Spacer()
                     }
-                    .padding(g.size.width * 0.025)
                     
-                    VStack(spacing: spacing) {
-                        Group {
-                            Text(card.rank.debugDescription)
-                                .font(font)
-                            Text(card.suit.debugDescription)
-                                .font(smallFont)
-                        }
+                    VStack(spacing: 0) {
+                        Text(card.rank.debugDescription)
+                            .font(font)
+                        card.suit.svgImage
+                            .frame(width: size / 9, height: size / 9)
+                        Spacer()
                     }
                     .padding(g.size.width * 0.025)
                     .rotationEffect(Angle(degrees: 180), anchor: UnitPoint.topLeading)
                     .offset(x: g.size.width, y: g.size.height)
                 }
             }
-
+            
             GeometryReader { g in
                 PlayingCardSuitPattern(suit: card.suit, count: card.rank.glyphCount)
-                    .padding([.top, .bottom], g.size.height * 0.1)
-                    .padding([.leading, .trailing], g.size.width * 0.2)
+                    .border(Color.black)
+                    .padding([.top, .bottom], g.size.height * 0.08)
+                    .padding([.leading, .trailing], g.size.width * 0.22)
             }
         }.foregroundColor(card.suit.color)
     }
@@ -102,24 +98,16 @@ struct PlayingCard_Previews: PreviewProvider {
         let card: PlayingCard = "10C"
         
         Group {
-            ForEach(PlayingCard.Rank.allCases, id: \.self) { rank in
-            HStack {
-                ForEach(PlayingCard.Suit.allCases, id: \.self) { suit in
-                    let card = PlayingCard(rank: rank, suit: suit)
-                    CardView(card: card)
+            ForEach(PlayingCard.Rank.allCases[8..<10], id: \.self) { rank in
+                HStack {
+                    ForEach(PlayingCard.Suit.allCases, id: \.self) { suit in
+                        let card = PlayingCard(rank: rank, suit: suit)
+                        CardView(card: card)
+                    }
                 }
-            }
             }
             .previewDisplayName("Front")
             .previewLayout(.fixed(width: 2.5 * 4 * 205, height: 3.5 * 200))
-            
-            CardView(card: card, flipped: true)
-                .previewDisplayName("Back")
-            
-            //            ForEach(0..<PlayingCard.fullDeck.count) { index in
-            //                CardView(card: PlayingCard.fullDeck[index])
-            //                    .previewDisplayName(PlayingCard.fullDeck[index].description)
-            //            }
         }
     }
 }

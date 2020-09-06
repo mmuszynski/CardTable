@@ -18,6 +18,15 @@
           "revision": "5a5a3e3168596daa97ac72c5e6cf9d8988119a7c",
           "version": "0.0.2"
         }
+      },
+      {
+        "package": "SVGParser",
+        "repositoryURL": "https://github.com/mmuszynski/SVGParser",
+        "state": {
+          "branch": null,
+          "revision": "96a58940995b22d05d61f93d81806ebe03f7e9bd",
+          "version": "0.0.6"
+        }
       }
     ]
   },
