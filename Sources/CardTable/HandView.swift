@@ -12,6 +12,11 @@ public struct HandView<CardType: Card>: View {
     public var cards: Deck<CardType>
     @Binding var selection: Set<Int>
     
+    public init(cards: Deck<CardType>, selection: Binding<Set<Int>>) {
+        self.cards = cards
+        self._selection = selection
+    }
+    
     func fanAmount(_ index: Int) -> Double {
         let mid = Double(self.cards.count) / 2 - 0.5
         let angle = 5.0
