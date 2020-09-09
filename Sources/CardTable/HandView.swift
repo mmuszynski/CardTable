@@ -106,6 +106,8 @@ public struct HandView<CardType: Card>: View {
                 
             }
         }
+        .frame(width: 250 + (self.cardOffsets.last ?? 100) - (self.cardOffsets.first ?? 100))
+        .offset(x: 75)
     }
 }
 

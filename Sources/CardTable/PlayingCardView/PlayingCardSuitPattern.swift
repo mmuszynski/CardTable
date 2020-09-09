@@ -13,18 +13,18 @@ struct PlayingCardSuitPattern: View {
     var suit: PlayingCard.Suit
     var count: Int
     
-    fileprivate func suitShape(in geometry: GeometryProxy, flipped: Bool = false) -> some View {
+    var suitSize: CGFloat = 40
+    
+    fileprivate func suitShape(flipped: Bool = false) -> some View {
         return suit.svgImage
             .rotationEffect(flipped ? Angle.radians(.pi) : .zero)
-            .frame(width: geometry.size.width / 3,
-                   height: geometry.size.width / 3)
+            .frame(width: suitSize, height: suitSize)
     }
     
-    fileprivate func row(of count: Int, in g: GeometryProxy, shouldFlip: Bool = false) -> some View {
+    fileprivate func row(of count: Int, shouldFlip: Bool = false) -> some View {
         return HStack {
             ForEach(0..<count, id: \.self) { i in
-                suitShape(in: g)
-                    .rotationEffect(shouldFlip ? Angle.radians(.pi) : .zero)
+                suitShape(flipped: shouldFlip)
                 
                 if i != count-1 {
                     Spacer()
@@ -33,11 +33,11 @@ struct PlayingCardSuitPattern: View {
         }
     }
     
-    fileprivate func column(of count: Int, in g: GeometryProxy, shouldFlip: ((Int)->Bool)? = nil) -> some View {
+    fileprivate func column(of count: Int, shouldFlip: ((Int)->Bool)? = nil) -> some View {
         return VStack {
             ForEach(0..<count, id: \.self) { i in
                 let shouldFlip = shouldFlip?(i) == true
-                suitShape(in: g, flipped: shouldFlip)
+                suitShape(flipped: shouldFlip)
                 
                 if i != count-1 {
                     Spacer()
@@ -47,37 +47,34 @@ struct PlayingCardSuitPattern: View {
     }
     
     var body: some View {
-        GeometryReader { g in
             Group {
                 switch count {
                 case 1, 2, 3:
-                    column(of: count, in: g, shouldFlip: { int in
+                    column(of: count, shouldFlip: { int in
                         count > 1 && int == count-1
                     })
                 case 5:
                     VStack {
-                        row(of: 2, in: g)
+                        row(of: 2)
                         Spacer()
-                        row(of: 1, in: g)
+                        row(of: 1)
                         Spacer()
-                        row(of: 2, in: g, shouldFlip: true)
+                        row(of: 2, shouldFlip: true)
                     }
                 case 7:
                     VStack {
-                        row(of: 2, in: g)
+                        row(of: 2)
                         Spacer()
-                            .frame(height: g.size.height / 20)
-                        row(of: 1, in: g)
+                        row(of: 1)
                         Spacer()
-                            .frame(height: g.size.height / 20)
-                        row(of: 2, in: g)
+                        row(of: 2)
                         Spacer()
-                        row(of: 2, in: g, shouldFlip: true)
+                        row(of: 2, shouldFlip: true)
                     }
                 case 4, 6, 8:
                     VStack {
                         ForEach(0..<count/2) { i in
-                            row(of: 2, in: g, shouldFlip: Double(i) >= Double(count) * 0.25)
+                            row(of: 2, shouldFlip: Double(i) >= Double(count) * 0.25)
                             
                             if i != count/2 - 1 {
                                 Spacer()
@@ -86,38 +83,34 @@ struct PlayingCardSuitPattern: View {
                     }
                 case 9:
                     VStack {
-                        row(of: 2, in: g)
+                        row(of: 2)
                         Spacer()
-                            .frame(height: g.size.height / 50)
-                        row(of: 1, in: g)
+                        row(of: 1)
                         Spacer()
-                            .frame(height: g.size.height / 50)
-                        row(of: 2, in: g)
+                        row(of: 2)
                         Spacer()
-                        row(of: 2, in: g, shouldFlip: true)
+                        row(of: 2, shouldFlip: true)
                         Spacer()
-                        row(of: 2, in: g, shouldFlip: true)
+                        row(of: 2, shouldFlip: true)
                     }
                 case 10:
                     VStack(spacing: 0) {
                         VStack(spacing: 0) {
-                            row(of: 2, in: g)
-                            row(of: 1, in: g)
-                            row(of: 2, in: g)
+                            row(of: 2)
+                            row(of: 1)
+                            row(of: 2)
                         }
                         Spacer()
                         VStack(spacing: 0) {
-                            row(of: 2, in: g, shouldFlip: true)
-                            row(of: 1, in: g, shouldFlip: true)
-                            row(of: 2, in: g, shouldFlip: true)
+                            row(of: 2, shouldFlip: true)
+                            row(of: 1, shouldFlip: true)
+                            row(of: 2, shouldFlip: true)
                         }
                     }
                 default:
                     Rectangle()
                 }
             }
-            .position(x: g.size.width / 2, y: g.size.height / 2)
-        }.padding()
     }
 }
 

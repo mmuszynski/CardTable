@@ -29,7 +29,7 @@ struct CardView<CardType: Card>: View {
                 }
             }
         }
-        .aspectRatio(CGSize(width: 2.5, height: 3.5), contentMode: .fit)
+        .frame(width: 250, height: 350, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
     }
 }
 
@@ -38,28 +38,23 @@ private struct CommonElements: View {
     var flipped: Bool
     
     var body: some View {
-        GeometryReader{ g in
-            let cornerRadius = g.size.width * 0.05
-            let padding = cornerRadius * 0.5
-            
-            ZStack {
-                Rectangle()
-                    .fill(Color.white)
-                    .cornerRadius(cornerRadius)
-                if flipped {
+        ZStack {
+            Rectangle()
+                .fill(Color.white)
+                .cornerRadius(20)
+            if flipped {
                 Rectangle()
                     .fill(colorScheme.borderColor)
-                    .cornerRadius(cornerRadius)
-                }
-                Rectangle()
-                    .fill(Color.white)
-                    .cornerRadius(cornerRadius)
-                    .padding(padding)
-                Rectangle()
-                    .fill(flipped ? colorScheme.cardBackColor : colorScheme.cardColor)
-                    .cornerRadius(cornerRadius)
-                    .padding(padding)
+                    .cornerRadius(20)
             }
+            Rectangle()
+                .fill(Color.white)
+                .cornerRadius(20)
+                .padding(20)
+            Rectangle()
+                .fill(flipped ? colorScheme.cardBackColor : colorScheme.cardColor)
+                .cornerRadius(20)
+                .padding(20)
         }
     }
 }
