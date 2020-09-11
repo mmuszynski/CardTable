@@ -10,20 +10,23 @@ import SwiftUI
 import CardDeck
 
 public struct CardView<CardType: Card>: View {
-    var card: CardType
-    public var flipped: Bool = false
+    public init(card: CardType, isFlipped: Bool = false) {
+        self.card = card
+    }
     
+    var card: CardType
+    public var isFlipped: Bool = false
     public var colorScheme: CardColorScheme = .redWhiteBlue
     
     public var body: some View {
         ZStack {
-            CommonElements(colorScheme: colorScheme, flipped: flipped)
+            CommonElements(colorScheme: colorScheme, isFlipped: isFlipped)
             
-            if flipped {
+            if isFlipped {
                 CardBackPattern(colorScheme: colorScheme)
             } else {
                 if card is PlayingCard {
-                    PlayingCardView(card: card as! PlayingCard, flipped: flipped, colorScheme: colorScheme)
+                    PlayingCardView(card: card as! PlayingCard, isFlipped: isFlipped, colorScheme: colorScheme)
                 } else {
                     GenericCardView(cardDescription: card.description)
                 }
@@ -35,14 +38,14 @@ public struct CardView<CardType: Card>: View {
 
 private struct CommonElements: View {
     var colorScheme: CardColorScheme
-    var flipped: Bool
+    var isFlipped: Bool
     
     var body: some View {
         ZStack {
             Rectangle()
                 .fill(Color.white)
                 .cornerRadius(20)
-            if flipped {
+            if isFlipped {
                 Rectangle()
                     .fill(colorScheme.borderColor)
                     .cornerRadius(20)
@@ -52,7 +55,7 @@ private struct CommonElements: View {
                 .cornerRadius(20)
                 .padding(20)
             Rectangle()
-                .fill(flipped ? colorScheme.cardBackColor : colorScheme.cardColor)
+                .fill(isFlipped ? colorScheme.cardBackColor : colorScheme.cardColor)
                 .cornerRadius(20)
                 .padding(20)
         }

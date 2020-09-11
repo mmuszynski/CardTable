@@ -15,16 +15,16 @@ struct PlayingCardSuitPattern: View {
     
     var suitSize: CGFloat = 40
     
-    fileprivate func suitShape(flipped: Bool = false) -> some View {
+    fileprivate func suitShape(isFlipped: Bool = false) -> some View {
         return suit.svgImage
-            .rotationEffect(flipped ? Angle.radians(.pi) : .zero)
+            .rotationEffect(isFlipped ? Angle.radians(.pi) : .zero)
             .frame(width: suitSize, height: suitSize)
     }
     
     fileprivate func row(of count: Int, shouldFlip: Bool = false) -> some View {
         return HStack {
             ForEach(0..<count, id: \.self) { i in
-                suitShape(flipped: shouldFlip)
+                suitShape(isFlipped: shouldFlip)
                 
                 if i != count-1 {
                     Spacer()
@@ -37,7 +37,7 @@ struct PlayingCardSuitPattern: View {
         return VStack {
             ForEach(0..<count, id: \.self) { i in
                 let shouldFlip = shouldFlip?(i) == true
-                suitShape(flipped: shouldFlip)
+                suitShape(isFlipped: shouldFlip)
                 
                 if i != count-1 {
                     Spacer()

@@ -51,7 +51,7 @@ fileprivate extension PlayingCard.Rank {
 struct PlayingCardView: View {
     var card: PlayingCard
     
-    var flipped: Bool
+    var isFlipped: Bool
     var colorScheme: CardColorScheme
     
     var body: some View {

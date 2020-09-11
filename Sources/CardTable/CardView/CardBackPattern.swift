@@ -43,7 +43,7 @@ struct Diagonal: Shape {
 
 struct CardBackPattern_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(card: "JS" as PlayingCard, flipped: true)
+        CardView(card: "JS" as PlayingCard, isFlipped: true)
             .previewLayout(.sizeThatFits)
     }
 }

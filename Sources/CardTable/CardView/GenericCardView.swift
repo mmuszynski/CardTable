@@ -35,7 +35,7 @@ struct GenericCardView_Previews: PreviewProvider {
                 HStack {
                     CardView(card: card)
                         .previewDisplayName("Front")
-                    CardView(card: card, flipped: true)
+                    CardView(card: card, isFlipped: true)
                         .previewDisplayName("Back")
                 }
             }
