@@ -86,8 +86,6 @@ struct PlayingCardView: View {
 
 struct PlayingCard_Previews: PreviewProvider {
     static var previews: some View {
-        let card: PlayingCard = "10C"
-        
         Group {
             ForEach(PlayingCard.Rank.allCases[0..<10], id: \.self) { rank in
                 HStack {

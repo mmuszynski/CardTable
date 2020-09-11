@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 import CardDeck
 
-struct CardView<CardType: Card>: View {
+public struct CardView<CardType: Card>: View {
     var card: CardType
-    var flipped: Bool = false
+    public var flipped: Bool = false
     
-    var colorScheme: CardColorScheme = .redWhiteBlue
+    public var colorScheme: CardColorScheme = .redWhiteBlue
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             CommonElements(colorScheme: colorScheme, flipped: flipped)
             
