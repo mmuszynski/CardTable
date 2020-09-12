@@ -32,7 +32,7 @@ public struct CardView<CardType: Card>: View {
                     GenericCardView(cardDescription: card.description)
                 }
             }
-        }
+        }.aspectRatio(CGSize(width: 2.5, height: 3.5), contentMode: .fill)
     }
 }
 
