@@ -21,10 +21,25 @@ struct PlayingCardSuitPattern: View {
             .frame(width: suitSize, height: suitSize)
     }
     
-    fileprivate func row(of count: Int, shouldFlip: Bool = false) -> some View {
+    fileprivate var suitShape: some View {
+        suit.svgImage
+    }
+    
+    fileprivate var flippedSuitShape: some View {
+        suit.svgImage
+            .rotationEffect(.radians(.pi))
+    }
+    
+    fileprivate func row(of count: Int, suitSize: CGFloat = 40, shouldFlip: Bool = false) -> some View {
         return HStack {
             ForEach(0..<count, id: \.self) { i in
-                suitShape(isFlipped: shouldFlip)
+                if shouldFlip {
+                    flippedSuitShape
+                        .frame(width: suitSize, height: suitSize, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                } else {
+                    suitShape
+                        .frame(width: suitSize, height: suitSize, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                }
                 
                 if i != count-1 {
                     Spacer()
@@ -37,7 +52,11 @@ struct PlayingCardSuitPattern: View {
         return VStack {
             ForEach(0..<count, id: \.self) { i in
                 let shouldFlip = shouldFlip?(i) == true
-                suitShape(isFlipped: shouldFlip)
+                if shouldFlip {
+                    flippedSuitShape
+                } else {
+                    suitShape
+                }
                 
                 if i != count-1 {
                     Spacer()
@@ -54,12 +73,15 @@ struct PlayingCardSuitPattern: View {
                         count > 1 && int == count-1
                     })
                 case 5:
-                    VStack {
-                        row(of: 2)
-                        Spacer()
-                        row(of: 1)
-                        Spacer()
-                        row(of: 2, shouldFlip: true)
+                    GeometryReader { g in
+                        VStack {
+                            row(of: 2, suitSize: g.size.width / 4)
+                            Spacer()
+                            row(of: 1, suitSize: g.size.width / 4)
+                            Spacer()
+                            row(of: 2, suitSize: g.size.width / 4, shouldFlip: true)
+
+                        }
                     }
                 case 7:
                     VStack {
@@ -116,7 +138,7 @@ struct PlayingCardSuitPattern: View {
 
 struct PlayingCardSuitPattern_Previews: PreviewProvider {
     static var previews: some View {
-        ForEach(1..<11) { count in
+        ForEach(5..<6) { count in
             PlayingCardSuitPattern(suit: .spade, count: count)
                 .previewDisplayName("\(count)")
         }.previewLayout(.fixed(width: 200, height: 400))

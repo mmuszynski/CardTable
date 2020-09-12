@@ -55,39 +55,41 @@ struct PlayingCardView: View {
     var colorScheme: CardColorScheme
     
     var body: some View {
-        ZStack {
-            ZStack {
+        GeometryReader { g in
+            HStack {
                 let cardNameplate = HStack {
                     VStack(spacing: 0) {
                         Text(card.rank.debugDescription)
                             .font(.largeTitle)
                         card.suit.svgImage
-                            .frame(width: 25, height: 25)
+                            .frame(width: g.size.width * 0.1, height: g.size.width * 0.1)
                         Spacer()
                     }
-                    Spacer()
-                }.padding(5)
+                }
                 
                 cardNameplate
+                    .padding([.leading, .trailing], g.size.width * 0.015)
+                    .padding([.top], g.size.height * 0.01)
+
+                PlayingCardSuitPattern(suit: card.suit, count: card.rank.glyphCount)
+                    .padding()
+                    .border(Color.black, width: g.size.width * 0.005)
+                    .padding([.top, .bottom], 40)
+                
                 cardNameplate
                     .rotationEffect(.degrees(180))
-            }
-            
-            PlayingCardSuitPattern(suit: card.suit, count: card.rank.glyphCount)
-                .padding(45)
-            
-            Rectangle()
-                .stroke(Color.black)
-                .padding(40)
-            
-        }.foregroundColor(card.suit.color)
+                    .padding([.leading, .trailing], g.size.width * 0.015)
+                    .padding([.top], g.size.height * 0.01)
+                
+            }.foregroundColor(card.suit.color)
+        }
     }
 }
 
 struct PlayingCard_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ForEach(PlayingCard.Rank.allCases[0..<10], id: \.self) { rank in
+            ForEach(PlayingCard.Rank.allCases[4..<5], id: \.self) { rank in
                 HStack {
                     ForEach(PlayingCard.Suit.allCases, id: \.self) { suit in
                         let card = PlayingCard(rank: rank, suit: suit)
@@ -96,7 +98,6 @@ struct PlayingCard_Previews: PreviewProvider {
                 }
             }
             .previewDisplayName("Front")
-            .previewLayout(.sizeThatFits)
         }
     }
 }
