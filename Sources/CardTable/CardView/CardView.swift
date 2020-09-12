@@ -12,6 +12,7 @@ import CardDeck
 public struct CardView<CardType: Card>: View {
     public init(card: CardType, isFlipped: Bool = false) {
         self.card = card
+        self.isFlipped = isFlipped
     }
     
     var card: CardType
@@ -32,7 +33,6 @@ public struct CardView<CardType: Card>: View {
                 }
             }
         }
-        .frame(width: 250, height: 350, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
     }
 }
 
@@ -44,20 +44,20 @@ private struct CommonElements: View {
         ZStack {
             Rectangle()
                 .fill(Color.white)
-                .cornerRadius(20)
+                .cornerRadius(10)
             if isFlipped {
                 Rectangle()
                     .fill(colorScheme.borderColor)
-                    .cornerRadius(20)
+                    .cornerRadius(10)
             }
             Rectangle()
                 .fill(Color.white)
-                .cornerRadius(20)
-                .padding(20)
+                .cornerRadius(10)
+                .padding(10)
             Rectangle()
                 .fill(isFlipped ? colorScheme.cardBackColor : colorScheme.cardColor)
-                .cornerRadius(20)
-                .padding(20)
+                .cornerRadius(10)
+                .padding(10)
         }
     }
 }
@@ -66,6 +66,7 @@ struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CardView(card: "3S" as PlayingCard)
+            CardView(card: "3S" as PlayingCard, isFlipped: true)
         }
     }
 }
