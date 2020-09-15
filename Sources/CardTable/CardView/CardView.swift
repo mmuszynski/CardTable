@@ -27,7 +27,7 @@ public struct CardView<CardType: Card>: View {
                 CardBackPattern(colorScheme: colorScheme)
             } else {
                 if card is PlayingCard {
-                    PlayingCardView(card: card as! PlayingCard, isFlipped: isFlipped, colorScheme: colorScheme)
+                    PlayingCardView(card: card as! PlayingCard, colorScheme: colorScheme)
                 } else {
                     GenericCardView(cardDescription: card.description)
                 }
@@ -67,6 +67,6 @@ struct CardView_Previews: PreviewProvider {
         Group {
             CardView(card: "3S" as PlayingCard)
             CardView(card: "3S" as PlayingCard, isFlipped: true)
-        }
+        }.previewLayout(.sizeThatFits)
     }
 }

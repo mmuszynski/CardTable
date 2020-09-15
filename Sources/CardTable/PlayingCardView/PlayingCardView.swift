@@ -51,7 +51,6 @@ fileprivate extension PlayingCard.Rank {
 struct PlayingCardView: View {
     var card: PlayingCard
     
-    var isFlipped: Bool
     var colorScheme: CardColorScheme
     
     var body: some View {
@@ -99,5 +98,7 @@ struct PlayingCard_Previews: PreviewProvider {
             }
             .previewDisplayName("Front")
         }
+        
+        CardView(card: "KH" as PlayingCard)
     }
 }
